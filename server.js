@@ -33,22 +33,47 @@ io.on('connection', (socket) => {
 //   //Postgres processes concurrent writes sequentially - no race condition Possible
 //   //The final owner is whoever's write reached the DB Last
 //   //All Clients are immediately notified of the resolved state via broadcast
-  socket.on('claim_block', async ({ blockId, x, y, userId }) => {
-    try {
-      const id = parseInt(blockId)
-      const updated = await prisma.block.upsert({
-        where: { id },
-        update: { ownerId: userId, isBot: false },
-        create: { id, x, y, ownerId: userId, isBot: false },
-      })
-      io.emit('block_updated', { blockId: updated.id, ownerId: updated.ownerId })
+  // socket.on('claim_block', async ({ blockId, x, y, userId }) => {
+  //   try {
+  //     const id = parseInt(blockId)
+  //     const updated = await prisma.block.upsert({
+  //       where: { id },
+  //       update: { ownerId: userId, isBot: false },
+  //       create: { id, x, y, ownerId: userId, isBot: false },
+  //     })
+  //     io.emit('block_updated', { blockId: updated.id, ownerId: updated.ownerId })
       
-      // Check if grid is full after this claim
-      checkAndResetIfFull()
-    } catch (err) {
-      console.error('upsert failed:', err)
-    }
-  })
+  //     // Check if grid is full after this claim
+  //     checkAndResetIfFull()
+  //   } catch (err) {
+  //     console.error('upsert failed:', err)
+  //   }
+  // })
+
+
+  socket.on('claim_block', async ({ blockId, x, y, userId }) => {
+  try {
+    const id = parseInt(blockId)
+    const updated = await prisma.block.upsert({
+      where: { id },
+      update: { ownerId: userId, isBot: false },
+      create: { id, x, y, ownerId: userId, isBot: false },
+    })
+    
+    // FIXED: Consistent payload shape including x, y, and explicit isBot
+    io.emit('block_updated', { 
+      blockId: updated.id, 
+      x: updated.x, 
+      y: updated.y,
+      ownerId: updated.ownerId, 
+      isBot: false  // ← explicit, not undefined
+    })
+    
+    checkAndResetIfFull()
+  } catch (err) {
+    console.error('upsert failed:', err)
+  }
+})
 
   socket.on('disconnect', () => {
     onlineCount--
