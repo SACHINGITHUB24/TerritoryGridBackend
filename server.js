@@ -7,7 +7,8 @@ const prisma = new PrismaClient()
 const httpServer = http.createServer()
 const io = new Server(httpServer, {
   cors: {
-    origin: ['http://localhost:3001','https://territory-grid-frontend-pearl.vercel.app/'], 
+    origin: ['http://localhost:3001','https://territory-grid-frontend-pearl.vercel.app/',
+      'https://territory-grid-frontend-6pmty684-sachingithub24s-projects.vercel.app',], 
     methods: ['GET', 'POST'],
     credentials: true
   },
