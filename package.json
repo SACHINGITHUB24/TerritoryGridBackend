@@ -1,0 +1,21 @@
+{
+  "name": "inboxkit-round",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^6.19.3",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "prisma": "^6.19.3",
+    "socket.io": "^4.8.3"
+  }
+}
