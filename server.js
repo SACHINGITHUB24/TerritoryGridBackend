@@ -5,7 +5,15 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 const httpServer = http.createServer()
-const io = new Server(httpServer, { cors: { origin: '*' } })
+const io = new Server(httpServer, {
+  cors: {
+    origin: ['http://localhost:3001','https://territory-grid-frontend-pearl.vercel.app/'], 
+    methods: ['GET', 'POST'],
+    credentials: true
+  },
+  transports: ['websocket', 'polling']
+})
+
 let onlineCount = 0
 
 const GRID_SIZE = 40          // ← match frontend
