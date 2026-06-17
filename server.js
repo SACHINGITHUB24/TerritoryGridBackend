@@ -4,7 +4,11 @@ const { Server } = require('socket.io')
 const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
-const httpServer = http.createServer()
+// const httpServer = http.createServer()
+const httpServer = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' })
+  res.end('ok')
+})
 const io = new Server(httpServer, {
   cors: {
     // origin: ['http://localhost:3001','https://territory-grid-frontend-pearl.vercel.app/',
