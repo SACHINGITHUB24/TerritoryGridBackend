@@ -14,6 +14,7 @@ const io = new Server(httpServer, {
   'http://localhost:3001',
   'https://territory-grid-frontend-pearl.vercel.app',
   'https://territory-grid-frontend-6pmty684-sachingithub24s-projects.vercel.app',
+      'https://territory-grid-frontend-git-main-sachingithub24s-projects.vercel.app/'
 ],
     credentials: true
   },
