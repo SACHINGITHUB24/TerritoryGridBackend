@@ -20,6 +20,7 @@ const io = new Server(httpServer, {
   'https://territory-grid-frontend-6pmty684-sachingithub24s-projects.vercel.app',
       'https://territory-grid-frontend-git-main-sachingithub24s-projects.vercel.app/'
 ],
+methods: ['GET', 'POST'],
     credentials: true
   },
   transports: ['websocket', 'polling']
